@@ -508,7 +508,7 @@ impl<'tree, Tab> DockArea<'tree, Tab> {
 
                     *viewport = rect;
 
-                    if ui.input().pointer.any_click() {
+                    if ui.input().pointer.any_down() {
                         if let Some(pos) = ui.input().pointer.hover_pos() {
                             if rect.contains(pos) {
                                 new_focused = Some(node_index);
@@ -517,8 +517,11 @@ impl<'tree, Tab> DockArea<'tree, Tab> {
                     }
 
                     if tab_viewer.clear_background(tab) {
-                        ui.painter()
-                            .rect_filled(rect, 0.0, style.tab_background_color);
+                        ui.painter().rect_filled(
+                            rect,
+                            style.body_rounding,
+                            style.body_background_color,
+                        );
                     }
 
                     let mut ui = ui.child_ui(rect, Default::default());
@@ -605,7 +608,7 @@ impl<'tree, Tab> DockArea<'tree, Tab> {
                 let painter = ui.ctx().layer_painter(layer_id);
 
                 if src != dst || self.tree[dst].tabs_count() > 1 {
-                    painter.rect_filled(helper, 0.0, style.selection_color);
+                    painter.rect_filled(helper, style.selection_rounding, style.selection_color);
                 }
 
                 if ui.input().pointer.any_released() {

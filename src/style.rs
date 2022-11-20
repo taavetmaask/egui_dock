@@ -19,6 +19,7 @@ pub struct Style {
     pub border_width: f32,
 
     pub selection_color: Color32,
+    pub selection_rounding: Rounding,
 
     pub separator_width: f32,
     pub separator_extra: f32,
@@ -34,6 +35,9 @@ pub struct Style {
 
     pub tab_text_color_unfocused: Color32,
     pub tab_text_color_focused: Color32,
+
+    pub body_rounding: Rounding,
+    pub body_background_color: Color32,
 
     pub tabs_are_draggable: bool,
     pub expand_tabs: bool,
@@ -65,6 +69,8 @@ impl Default for Style {
             border_width: Default::default(),
 
             selection_color: Color32::from_rgb(0, 191, 255).linear_multiply(0.5),
+            selection_rounding: Default::default(),
+
             separator_width: 1.0,
             separator_extra: 175.0,
             separator_color_idle: Color32::BLACK,
@@ -79,6 +85,9 @@ impl Default for Style {
 
             tab_text_color_unfocused: Color32::DARK_GRAY,
             tab_text_color_focused: Color32::BLACK,
+
+            body_rounding: Default::default(),
+            body_background_color: Color32::WHITE,
 
             close_tab_color: Color32::WHITE,
             close_tab_active_color: Color32::WHITE,
@@ -137,6 +146,8 @@ impl Style {
             separator_color_dragged: style.visuals.widgets.active.bg_stroke.color,
 
             border_color: style.visuals.widgets.active.bg_fill,
+
+            body_background_color: style.visuals.window_fill(),
 
             close_tab_background_color: style.visuals.widgets.active.bg_fill,
             close_tab_color: style.visuals.text_color(),
